@@ -1,2 +1,4 @@
 Django~=3.2.10
 tensorflow~=2.1
+pandas
+pillow
