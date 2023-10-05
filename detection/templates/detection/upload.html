@@ -1,0 +1,14 @@
+{% extends 'detection/process.html' %}
+
+{% block upload %}
+    <form method="post" enctype="multipart/form-data" action="{% url 'process_image' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Upload Image">
+    </form>
+    {% if prediction %}
+        <h1>Detected Letter : {{ prediction }}</h1>
+    <!-- Display the result here, e.g., an image or some text -->
+    {% endif %}
+    
+{% endblock %}

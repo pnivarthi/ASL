@@ -46,8 +46,11 @@ class ASLMODEL(models.Model):
         return prediction
     
     def preprocess_image(self, image_name):
-        image_path = os.path.join(settings.BASE_DIR, 'DATA', 'Test', image_name)
-        image = Image.open(image_path)
+        if isinstance(image_name, str):
+            image_path = os.path.join(settings.BASE_DIR, 'DATA', 'Test', image_name)
+            image = Image.open(image_path)
+        else:
+            image = image_name
         image = image.resize((224, 224))
         image_array = np.array(image)
         image_array = image_array / 255.0

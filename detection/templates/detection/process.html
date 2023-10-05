@@ -1,0 +1,98 @@
+{% extends 'detection/home.html' %}
+
+{% block content %}
+        <h2>Instructions on How to Use:</h2>
+        <p>
+            1. You can upload an image from your local directory by clicking the "Choose File" button below.<br>
+            2. Alternatively, you can take a picture using your webcam by clicking the "Take a Picture" button.<br>
+            3. After selecting/uploading an image, click the "Submit" button to detect the sign language letter.<br>
+            4. The uploaded image and detected letter will be displayed below.
+        </p>
+
+        <!-- File Upload and Submit Form -->
+        <!-- <form id="upload-form" enctype="multipart/form-data", action="{% url 'process_image' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Upload Image">
+
+
+            <input type="file" id="file-input" accept="image/*" style="display: none;">
+            <button type="button" id="choose-file-btn" class="btn btn-primary">Choose File</button>
+            <button type="button" id="take-picture-btn" class="btn btn-primary">Take a Picture</button>
+            <button type="submit" class="btn btn-success" id="submit-button" style="display: none", href="{% url 'process_image' %}">Submit</button>
+        </form> -->
+
+        {% block upload %}
+        {% endblock %}
+
+
+        <!-- <button id="upload-button">Upload</button>
+
+        <script>
+            document.getElementById('upload-button').addEventListener('click', function () {
+                // Trigger form submission when the button is clicked
+                document.getElementById('upload-form').submit();
+            });
+        </script> -->
+
+        <!-- Output Section -->
+        <!-- <div id="preview" style="display: none;">
+            <h2>Uploaded Image Preview:</h2>
+            <img id="preview-image" src="#" alt="Uploaded Image" width="300" height="200">
+        </div>
+
+        <br>
+        <div id="output" style="display: none;">
+            <h2>Detected Letter : </h2>
+            <p id="detected-letter"></p>
+        </div> -->
+
+        {% block output%}
+        {% endblock %}
+
+    <!-- JavaScript for Handling File Input and Displaying Output -->
+    <script>
+        // Function to handle file input
+        document.getElementById("choose-file-btn").addEventListener("click", function () {
+            document.getElementById("file-input").click();
+        });
+
+        // Function to handle taking a picture
+        document.getElementById("take-picture-btn").addEventListener("click", function () {
+            // You can implement webcam functionality here using JavaScript or a library like WebcamJS
+            // For simplicity, this example assumes webcam functionality is already implemented.
+            alert("Take a picture using your webcam. (Functionality not implemented in this example)");
+        });
+
+        // Function to handle file selection
+        document.getElementById("file-input").addEventListener("change", function () {
+            const fileInput = document.getElementById("file-input");
+            const previewImage = document.getElementById("preview-image");
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    previewImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+
+                // Show the output section
+                document.getElementById("preview").style.display = "block";
+                document.getElementById("submit-button").style.display = "block";
+            }
+        });
+
+        // Function to handle form submission (simulated detection)
+        document.getElementById("upload-form").addEventListener("submit", get_detected);
+        async function get_detected(e) {
+            e.preventDefault();
+            const detectedLetter = "A"; // Simulated detected letter (replace with actual detection logic)
+
+            // Display the detected letter
+            document.getElementById("output").style.display = "block"
+            document.getElementById("detected-letter").innerText = detectedLetter;
+        };
+    </script>
+{% endblock %}
